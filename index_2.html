@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lynn @ S P Setia — The Full Arc</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Noto+Sans+SC:wght@400;700&family=Bangers&family=Comic+Neue:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sp-navy: #003da5;
+    --sp-blue: #0066cc;
+    --sp-light-blue: #e6f2ff;
+    --sp-red: #e30613;
+    --sp-white: #ffffff;
+    --sp-gold: #c9a84c;
+    --sp-green: #27ae60;
+    --sp-cream: #f5f0e8;
+    --desktop-bg: #e6f2ff;
+    --win-gray: #d4d0c8;
+    --win-dark: #808080;
+    --comic-yellow: #FFE566;
+    --comic-pink: #FF6B9D;
+    --comic-blue: #4ECDC4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    font-family: 'Noto Sans SC', sans-serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ===================== SCENE WRAPPER ===================== */
+  .scene {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ===================== SCENE 0: BOOT SCREEN ===================== */
+  #boot {
+    background: var(--sp-navy);
+    color: #4da6ff;
+    font-family: 'VT323', monospace;
+    font-size: 1.3rem;
+    padding: 3rem;
+    cursor: pointer;
+    position: relative;
+  }
+
+  #boot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(201,168,76,0.03) 2px, rgba(201,168,76,0.03) 4px);
+    pointer-events: none;
+  }
+
+  .boot-text { max-width: 700px; line-height: 1.8; position: relative; z-index: 1; }
+  .boot-line { opacity: 0; animation: bootIn 0.1s forwards; }
+  .boot-line.warning { color: #ff4444; }
+  .boot-line.success { color: #4da6ff; }
+  .cursor-blink { animation: blink 1s infinite; }
+
+  @keyframes bootIn { to { opacity: 1; } }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .press-enter {
+    margin-top: 3rem;
+    font-size: 1.6rem;
+    color: #ffffff;
+    animation: blink 1.2s infinite;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===================== SCENE 1: LOGIN ===================== */
+  #login {
+    background: var(--desktop-bg);
+    display: none;
+  }
+
+  .login-wallpaper {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 40%, var(--sp-blue) 0%, var(--sp-navy) 60%, #001d4a 100%);
+  }
+
+  .login-wallpaper::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px),
+                      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px);
+  }
+
+  .login-box {
+    position: relative;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 16px;
+    padding: 3rem 3.5rem;
+    width: 380px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  }
+
+  .company-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    color: var(--sp-blue);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .company-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .avatar-circle {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, var(--sp-blue), var(--sp-navy));
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; font-weight: 700; color: white;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 0.05em;
+  }
+
+  .login-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.3rem;
+  }
+
+  .login-title {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1.5rem;
+  }
+
+  .login-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    font-family: 'Space Mono', monospace;
+    text-align: center;
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+    outline: none;
+  }
+
+  .login-input::placeholder { color: rgba(255,255,255,0.4); }
+
+  .login-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--sp-red);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+
+  .login-btn:hover { background: #cc0511; transform: translateY(-1px); }
+
+  .login-date {
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ===================== SCENE 2: DESKTOP ===================== */
+  #desktop {
+    background: var(--desktop-bg);
+    display: none;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .taskbar {
+    background: rgba(0,0,0,0.7);
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .taskbar-left { display: flex; gap: 1.5rem; align-items: center; }
+  .taskbar-logo { color: var(--sp-gold); font-weight: 700; font-size: 0.9rem; }
+
+  .desktop-area {
+    flex: 1;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 90px);
+    grid-template-rows: repeat(auto-fill, 90px);
+    gap: 0.5rem;
+    align-content: start;
+  }
+
+  .desktop-icon {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.4rem; cursor: pointer; padding: 0.5rem;
+    border-radius: 6px; transition: background 0.15s;
+    text-align: center;
+  }
+
+  .desktop-icon:hover { background: rgba(255,255,255,0.15); }
+
+  .icon-img { font-size: 2.2rem; }
+
+  .icon-label {
+    font-size: 0.65rem;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+    font-family: 'Space Mono', monospace;
+    word-break: break-word;
+    line-height: 1.2;
+  }
+
+  /* Email window */
+  .email-window {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: min(700px, 95vw);
+    max-height: 80vh;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  .email-window.open {
+    display: flex;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .win-titlebar {
+    background: linear-gradient(90deg, #0a1f5c, #1a3a8c);
+    color: white;
+    padding: 0.6rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .win-close {
+    background: #ff4444;
+    border: none;
+    color: white;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.7rem;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+  }
+
+  .email-content {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: #333;
+  }
+
+  .email-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .email-field { display: flex; gap: 0.5rem; margin-bottom: 0.3rem; }
+  .email-label { color: #888; width: 60px; flex-shrink: 0; }
+  .email-val { color: #333; }
+  .email-subject-big {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0a1f5c;
+    margin-top: 0.5rem;
+  }
+
+  .email-body { color: #444; }
+  .email-red { color: #c0392b; font-weight: 700; }
+  .email-boss-sig {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    font-size: 0.75rem;
+    color: #888;
+  }
+
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+  }
+
+  .overlay.open { display: block; }
+
+  /* Notepad window */
+  .notepad-window {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: min(650px, 95vw);
+    max-height: 80vh;
+    background: #fffef0;
+    border-radius: 0;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    border: 2px solid #888;
+  }
+
+  .notepad-window.open {
+    display: flex;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .notepad-titlebar {
+    background: linear-gradient(180deg, #003da5, #0052d9);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Verdana', sans-serif;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .notepad-content {
+    padding: 1rem;
+    overflow-y: auto;
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #000;
+    background: #fffef0;
+  }
+
+  .notepad-content h1 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+  }
+
+  .notepad-content h2 {
+    font-size: 0.95rem;
+    margin: 1rem 0 0.3rem;
+    font-weight: bold;
+  }
+
+  .notepad-content ul {
+    margin: 0.5rem 0 0.5rem 1.5rem;
+  }
+
+  .notepad-content li {
+    margin: 0.3rem 0;
+  }
+
+  /* ===================== SCENE 3: SCROLLY - FRIENDS ===================== */
+  #friends-scroll {
+    background: linear-gradient(180deg, #1a0a2e 0%, #2d1b69 30%, #1a3a5c 60%, #0d2137 100%);
+    min-height: 200vh;
+    padding: 0;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  .scroll-chapter {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    position: sticky;
+    top: 0;
+    text-align: center;
+  }
+
+  .chapter-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1rem;
+  }
+
+  .chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 700;
+    font-style: italic;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+  }
+
+  .chapter-body {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.8);
+    max-width: 600px;
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  .emoji-row { font-size: 2.5rem; margin: 1rem 0; letter-spacing: 0.3em; }
+
+  /* Media slot */
+  .media-slot {
+    display: grid;
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .media-slot.grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .media-slot.grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .media-placeholder {
+    background: rgba(255,255,255,0.08);
+    border: 2px dashed rgba(255,255,255,0.25);
+    border-radius: 12px;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .media-placeholder:hover {
+    background: rgba(255,255,255,0.13);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  .media-placeholder input[type="file"] {
+    position: absolute; inset: 0;
+    opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+
+  .media-placeholder img, .media-placeholder video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+
+  /* Comic strip slots — 1800x1200 (3:2) */
+  .comic-slot {
+    aspect-ratio: 3 / 2 !important;
+  }
+
+  .upload-icon { font-size: 2rem; }
+  .upload-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Space Mono', monospace;
+    text-align: center;
+    padding: 0 0.5rem;
+  }
+
+  /* ===================== SCENE 4: COMIC ===================== */
+  .comic-scene {
+    background: var(--comic-yellow);
+    padding: 3rem 1.5rem;
+    min-height: 100vh;
+  }
+
+  .comic-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .comic-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    letter-spacing: 0.05em;
+    color: #000;
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+    line-height: 1;
+  }
+
+  .comic-subtitle {
+    font-family: 'Comic Neue', cursive;
+    font-size: 1rem;
+    color: #555;
+    margin-top: 0.5rem;
+  }
+
+  .comic-grid {
+    display: grid;
+    gap: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .comic-grid.layout-2 { grid-template-columns: 1fr 1fr; }
+  .comic-grid.layout-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .comic-grid.layout-wide { grid-template-columns: 2fr 1fr; }
+  .comic-grid.layout-tall { grid-template-columns: 1fr 2fr; }
+
+  .comic-panel {
+    background: white;
+    border: 3px solid #000;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .comic-panel.yellow { background: var(--comic-yellow); }
+  .comic-panel.pink { background: #FFB3D1; }
+  .comic-panel.blue { background: #B3E5FC; }
+  .comic-panel.red { background: #FFCDD2; }
+  .comic-panel.tall { min-height: 300px; }
+  .comic-panel.trophy { min-height: 260px; background: linear-gradient(135deg, #FFE566, #FFD700); }
+
+  .panel-bg-pattern {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 15px 15px;
+  }
+
+  .panel-content {
+    position: relative;
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .speech-bubble {
+    background: white;
+    border: 2.5px solid #000;
+    border-radius: 16px;
+    padding: 0.6rem 0.9rem;
+    font-family: 'Comic Neue', cursive;
+    font-size: 0.85rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    max-width: 90%;
+    line-height: 1.4;
+  }
+
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -12px; left: 20px;
+    border: 6px solid transparent;
+    border-top-color: #000;
+  }
+
+  .speech-bubble.right::after { left: auto; right: 20px; }
+  .speech-bubble.think {
+    border-style: dashed;
+    border-radius: 50%;
+  }
+
+  .speech-bubble.shout {
+    background: #FFE566;
+    transform: rotate(-1deg);
+    font-size: 1rem;
+  }
+
+  .speech-bubble.boss {
+    background: #FFCDD2;
+    border-color: #c0392b;
+  }
+
+  .panel-character {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    text-align: center;
+    margin: 0.5rem 0;
+    filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.2));
+  }
+
+  .panel-caption {
+    background: #000;
+    color: white;
+    font-family: 'Comic Neue', cursive;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 0.6rem;
+    letter-spacing: 0.05em;
+  }
+
+  .panel-caption.yellow { background: var(--sp-gold); color: #000; }
+  .panel-caption.red { background: var(--sp-red); }
+
+  .sfx {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    color: #c0392b;
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+    text-align: center;
+    transform: rotate(-3deg);
+    display: block;
+  }
+
+  .sfx.blue { color: #1565C0; }
+  .sfx.green { color: #2e7d32; }
+
+  .trophy-text {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: #000;
+    text-align: center;
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+    letter-spacing: 0.05em;
+  }
+
+  .panel-media {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .panel-media-slot {
+    width: 100%;
+    flex: 1;
+    min-height: 120px;
+    background: rgba(0,0,0,0.05);
+    border-top: 2px solid #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .panel-media-slot:hover { background: rgba(0,0,0,0.1); }
+  .panel-media-slot input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  .panel-media-slot img, .panel-media-slot video {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  }
+  .panel-upload-icon { font-size: 1.5rem; }
+  .panel-upload-label {
+    font-family: 'Comic Neue', cursive;
+    font-size: 0.7rem;
+    color: #888;
+    text-align: center;
+    padding: 0 0.5rem;
+  }
+
+  /* ===================== SCENE 7: WORK CONTINUES ===================== */
+  #work-continues {
+    background: linear-gradient(180deg, #1c1c2e 0%, #2d2d44 100%);
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    color: white;
+    text-align: center;
+  }
+
+  .mood-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    padding: 0.5rem 1.2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 2rem;
+  }
+
+  .cow-big { font-size: 5rem; margin: 2rem 0; animation: float 3s ease-in-out infinite; }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  .pua-quotes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 2rem auto;
+  }
+
+  .pua-quote {
+    background: rgba(192,57,43,0.15);
+    border-left: 4px solid var(--sp-red);
+    padding: 1rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+    text-align: left;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.8);
+    position: relative;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s ease;
+  }
+
+  .pua-quote.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .pua-quote .quote-source {
+    font-size: 0.65rem;
+    color: rgba(255,100,100,0.7);
+    margin-top: 0.4rem;
+  }
+
+  /* ===================== SCENE: FRIENDS LEAVING ===================== */
+  #friends-leaving {
+    background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    color: white;
+    text-align: center;
+  }
+
+  .leaving-grid {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2rem auto;
+    max-width: 600px;
+  }
+
+  .friend-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 1.2rem;
+    width: 120px;
+    text-align: center;
+    transition: all 0.4s;
+  }
+
+  .friend-card.gone {
+    opacity: 0.3;
+    filter: grayscale(1);
+    border-style: dashed;
+  }
+
+  .friend-card .avatar { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .friend-card .name {
+    font-size: 0.7rem;
+    font-family: 'Space Mono', monospace;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .friend-card .status {
+    font-size: 0.6rem;
+    color: rgba(255,100,100,0.8);
+    margin-top: 0.3rem;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ===================== SCENE: JOB HUNT ===================== */
+  #job-hunt {
+    background: #f0f0f0;
+    min-height: 100vh;
+    padding: 3rem 1.5rem;
+  }
+
+  .browser-window {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
+
+  .browser-bar {
+    background: #e8e8e8;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .browser-dots { display: flex; gap: 0.4rem; }
+  .browser-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .bd-red { background: #ff5f57; }
+  .bd-yellow { background: #febc2e; }
+  .bd-green { background: #28c840; }
+
+  .browser-url {
+    flex: 1;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 0.3rem 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: #555;
+  }
+
+  .browser-content { padding: 2rem; }
+
+  .job-listing {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.2s;
+    position: relative;
+  }
+
+  .job-listing:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+
+  .job-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1a1a2e;
+    margin-bottom: 0.3rem;
+  }
+
+  .job-company { font-size: 0.85rem; color: #555; margin-bottom: 0.5rem; }
+
+  .job-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    margin-right: 0.4rem;
+  }
+
+  .tag-weird { background: #FFE566; color: #333; }
+  .tag-red { background: #FFCDD2; color: #c0392b; }
+  .tag-ok { background: #C8E6C9; color: #2e7d32; }
+
+  .interview-note {
+    background: #FFF9C4;
+    border: 1px solid #F9A825;
+    border-radius: 4px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.75rem;
+    font-family: 'Comic Neue', cursive;
+    color: #555;
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  /* ===================== FINAL SCENE ===================== */
+  #farewell {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .farewell-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 700px;
+    margin: 2rem auto;
+  }
+
+  .memory-card {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid rgba(255,255,255,0.1);
+  }
+
+  .memory-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.8), transparent);
+    padding: 1rem 0.5rem 0.5rem;
+    font-size: 0.65rem;
+    font-family: 'Space Mono', monospace;
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+  }
+
+  /* ===================== LOGOUT SCREEN ===================== */
+  #logout {
+    background: #000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .logout-os {
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    color: #33ff33;
+    letter-spacing: 0.1em;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeIn 1s 1s forwards;
+  }
+
+  .logout-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-style: italic;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s forwards;
+  }
+
+  .logout-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.2em;
+    opacity: 0;
+    animation: fadeIn 1s 2s forwards;
+    margin-bottom: 4rem;
+  }
+
+  .bye-bitches {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(3rem, 12vw, 8rem);
+    letter-spacing: 0.05em;
+    background: linear-gradient(135deg, var(--sp-gold), #ff6b6b, #4ecdc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: byeIn 1.2s 3s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    line-height: 1;
+  }
+
+  .bye-emoji {
+    font-size: 4rem;
+    opacity: 0;
+    animation: fadeIn 0.5s 4s forwards;
+    margin-top: 1rem;
+  }
+
+  .bye-years {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.3);
+    margin-top: 2rem;
+    opacity: 0;
+    animation: fadeIn 1s 4.5s forwards;
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes byeIn { to { opacity: 1; transform: scale(1); } }
+
+  /* ===================== SCROLL FADE IN ===================== */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===================== SECTION DIVIDERS ===================== */
+  .year-divider {
+    background: #000;
+    color: white;
+    text-align: center;
+    padding: 3rem 2rem;
+    font-family: 'Bangers', cursive;
+    font-size: clamp(4rem, 15vw, 12rem);
+    letter-spacing: 0.1em;
+    line-height: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .year-divider::before {
+    content: attr(data-year);
+    position: absolute;
+    font-size: clamp(6rem, 25vw, 18rem);
+    opacity: 0.05;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    white-space: nowrap;
+  }
+
+  .year-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.4);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .scroll-hint {
+    position: fixed;
+    bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.2em;
+    animation: bounce 2s infinite;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 600px) {
+    .comic-grid.layout-2, .comic-grid.layout-3 { grid-template-columns: 1fr; }
+    .comic-grid.layout-wide, .comic-grid.layout-tall { grid-template-columns: 1fr; }
+    .farewell-grid { grid-template-columns: repeat(2, 1fr); }
+    .leaving-grid { gap: 0.8rem; }
+    .friend-card { width: 90px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SCROLL HINT -->
+<div class="scroll-hint" id="scrollHint">↓ SCROLL DOWN ↓</div>
+
+<!-- ===================== BOOT SCREEN ===================== -->
+<div class="scene" id="boot">
+  <div class="boot-text" id="bootText"></div>
+  <div class="press-enter" id="pressEnter" style="display:none">[ PRESS ENTER OR CLICK TO CONTINUE ]</div>
+</div>
+
+<!-- ===================== LOGIN ===================== -->
+<div class="scene" id="login">
+  <div class="login-wallpaper"></div>
+  <div class="login-box">
+    <div class="company-logo">S P SETIA BHD</div>
+    <div class="company-name">Employee Portal</div>
+    <div class="avatar-circle">YL</div>
+    <div class="login-name">Yeo Lyn Ying</div>
+    <div class="login-title">Executive · Group Finance</div>
+    <input class="login-input" type="password" placeholder="••••••••" id="pwInput">
+    <button class="login-btn" onclick="doLogin()">SIGN IN →</button>
+    <div class="login-date" id="loginDate"></div>
+  </div>
+</div>
+
+<!-- ===================== YEAR 2021 DIVIDER ===================== -->
+<div class="year-divider" id="yr2021" data-year="2021" style="display:none">
+  <span class="year-label">CHAPTER ONE</span>
+  2021
+</div>
+
+<!-- ===================== DESKTOP ===================== -->
+<div id="desktop" style="display:none; min-height:100vh; flex-direction:column;">
+  <div class="taskbar">
+    <div class="taskbar-left">
+      <span class="taskbar-logo">🏢 SP Setia Intranet</span>
+      <span>📬 Inbox (3)</span>
+      <span>📁 My Files</span>
+    </div>
+    <span id="taskbarTime"></span>
+  </div>
+  <div class="desktop-area">
+    <div class="desktop-icon" onclick="openEmail('welcome')">
+      <div class="icon-img">📧</div>
+      <div class="icon-label">Welcome Email</div>
+    </div>
+    <div class="desktop-icon" onclick="openEmail('boss')">
+      <div class="icon-img">😬</div>
+      <div class="icon-label">Boss Mail</div>
+    </div>
+    <div class="desktop-icon" onclick="openEmail('hr')">
+      <div class="icon-img">📋</div>
+      <div class="icon-label">HR Policy.pdf</div>
+    </div>
+    <div class="desktop-icon" onclick="openEmail('annual')">
+      <div class="icon-img">🎉</div>
+      <div class="icon-label">Annual Dinner Notice</div>
+    </div>
+    <div class="desktop-icon">
+      <div class="icon-img">📊</div>
+      <div class="icon-label">Q3 Report.xlsx</div>
+    </div>
+    <div class="desktop-icon" onclick="openNotepad()">
+      <div class="icon-img">☕</div>
+      <div class="icon-label">Survival Guide</div>
+    </div>
+    <div class="desktop-icon" onclick="scrollToNext()">
+      <div class="icon-img">➡️</div>
+      <div class="icon-label">Continue Story</div>
+    </div>
+  </div>
+  <div style="padding: 1rem 2rem; color: rgba(0,0,0,0.4); font-family:'Space Mono',monospace; font-size:0.7rem; margin-top:auto;">
+    Click the emails and Survival Guide to open them. Then click "Continue Story" →
+  </div>
+</div>
+
+<!-- Email Overlay -->
+<div class="overlay" id="overlay" onclick="closeEmail()"></div>
+
+<!-- Welcome Email -->
+<div class="email-window" id="email-welcome">
+  <div class="win-titlebar">
+    <span>📧 Inbox — Welcome to the Family!</span>
+    <button class="win-close" onclick="closeEmail()">✕</button>
+  </div>
+  <div class="email-content">
+    <div class="email-header">
+      <div class="email-field"><span class="email-label">From:</span><span class="email-val">HR Department &lt;hr@spsetia.com.my&gt;</span></div>
+      <div class="email-field"><span class="email-label">To:</span><span class="email-val">Yeo Lyn Ying &lt;lynying@spsetia.com.my&gt;</span></div>
+      <div class="email-field"><span class="email-label">Date:</span><span class="email-val">1 March 2021, 9:00 AM</span></div>
+      <div class="email-subject-big">Welcome to S P Setia! 🎊</div>
+    </div>
+    <div class="email-body">
+      <p>Dear Lyn Ying,</p><br>
+      <p>On behalf of S P Setia Berhad, we are thrilled to welcome you as our newest team member! 🏢</p><br>
+      <p>You are joining one of Malaysia's premier property developers, and we have absolutely NO DOUBT that you will thrive here.</p><br>
+      <p>Your orientation starts Monday. Please collect your access card, laptop, and a complimentary mug that you will treasure forever (or until you resign, whichever comes first).</p><br>
+      <p>Good luck out there, fresh grad! The real world is fun, we promise* 😊</p><br>
+      <p style="font-size:0.7rem; color:#999;">*Terms and conditions apply.</p>
+    </div>
+    <div class="email-boss-sig">S P Setia Human Resources · Kuala Lumpur</div>
+  </div>
+</div>
+
+<!-- Boss Email -->
+<div class="email-window" id="email-boss">
+  <div class="win-titlebar" style="background: linear-gradient(90deg, #7b0000, #b00);">
+    <span>😬 Inbox — FROM: The Boss</span>
+    <button class="win-close" onclick="closeEmail()">✕</button>
+  </div>
+  <div class="email-content">
+    <div class="email-header">
+      <div class="email-field"><span class="email-label">From:</span><span class="email-val">The Boss 👁️ &lt;boss@spsetia.com.my&gt;</span></div>
+      <div class="email-field"><span class="email-label">To:</span><span class="email-val">Lyn Ying; The Whole Team</span></div>
+      <div class="email-field"><span class="email-label">Date:</span><span class="email-val">August 2021</span></div>
+      <div class="email-subject-big" style="color:#c0392b;">Re: Your Performance (Unsolicited Feedback)</div>
+    </div>
+    <div class="email-body">
+      <p>Lyn Ying,</p><br>
+      <p>I have been observing your work closely. I think you work well but you need to improve your attitude. Comments from your superior.</p><br>
+      <p>The good news? I am planning to promote you. <span class="email-red">你是个要做 AM 的人。</span></p><br>
+      <p>Just keep doing the work, okay? <span class="email-red">带好Jayne，做好两个BU的closing</span> — <span class="email-red">你会了就是你的 portfolio.</span></p><br>
+      <p>Think of it as… an investment! In yourself. On our time. Using our resources. But definitely YOUR portfolio.</p><br>
+      <p>You're welcome. 🙂</p>
+    </div>
+    <div class="email-boss-sig">— Management 👁️ | "We see everything"</div>
+  </div>
+</div>
+
+<!-- HR / Leave Email -->
+<div class="email-window" id="email-hr">
+  <div class="win-titlebar" style="background: linear-gradient(90deg, #5d4037, #8d6e63);">
+    <span>📋 Leave Application — REJECTED</span>
+    <button class="win-close" onclick="closeEmail()">✕</button>
+  </div>
+  <div class="email-content">
+    <div class="email-header">
+      <div class="email-field"><span class="email-label">From:</span><span class="email-val">The Minion 🐾 &lt;minion@spsetia.com.my&gt;</span></div>
+      <div class="email-field"><span class="email-label">To:</span><span class="email-val">Yeo Lyn Ying</span></div>
+      <div class="email-subject-big" style="color:#c0392b;">❌ Leave Request: REJECTED</div>
+    </div>
+    <div class="email-body">
+      <p>Hi Lyn Ying,</p><br>
+      <p>After careful consideration of your leave application, I regret to inform you that your request has been <span class="email-red">REJECTED.</span></p><br>
+      <p>Reason: <span class="email-red">"Short of manpower for closing."</span></p><br>
+      <p>We understand this may be disappointing, but you have been taking a lot more leaves than our average staff did. Please plan your personal life accordingly.</p><br>
+      <p>If you have any questions, please don't ask me, I'm just the messenger. 🙂</p>
+    </div>
+    <div class="email-boss-sig">— HR (The Minion Division) | "Just Following Orders"</div>
+  </div>
+</div>
+
+<!-- Annual Dinner Email -->
+<div class="email-window" id="email-annual">
+  <div class="win-titlebar" style="background: linear-gradient(90deg, #1a237e, #283593);">
+    <span>🎉 Annual Dinner 2022 — Compulsory Fun Notice</span>
+    <button class="win-close" onclick="closeEmail()">✕</button>
+  </div>
+  <div class="email-content">
+    <div class="email-header">
+      <div class="email-field"><span class="email-label">From:</span><span class="email-val">Events Committee &lt;AD2022@spsetia.com.my&gt;</span></div>
+      <div class="email-field"><span class="email-label">To:</span><span class="email-val">Team Setia</span></div>
+      <div class="email-subject-big">Annual Dinner 2022 — Performance Participation (MANDATORY)</div>
+    </div>
+    <div class="email-body">
+      <p>Dear Team Setia,</p><br>
+      <p>Congratulations for being chosen as our performers! 🎭</p><br>
+      <p>We strongly <em>encourage</em> (read: expect) your participation. This is a wonderful opportunity to showcase your talent, bond with colleagues, and <strong>absolutely sore your body with rehearsals and practices.</strong></p><br>
+      <p>Sign up deadline: This Friday. Late entries will be noted. 👀</p><br>
+      <p>P/S: Last year's winners received RM50 vouchers and eternal glory. Just saying.</p>
+    </div>
+    <div class="email-boss-sig">— Events Committee | "Mandatory Fun Department"</div>
+  </div>
+</div>
+
+<!-- Survival Guide Notepad -->
+<div class="notepad-window" id="notepad-survival">
+  <div class="notepad-titlebar">
+    <span>📝 Survival_Guide.txt - Notepad</span>
+    <button class="win-close" onclick="closeNotepad()">✕</button>
+  </div>
+  <div class="notepad-content">
+<h1>SP SETIA GROUP FINANCE SURVIVAL GUIDE</h1>
+<em>Unofficial Edition - Do Not Forward to Management</em>
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<h2>RULE #1: EMAIL ETIQUETTE</h2>
+<ul>
+  <li>If boss says "我要升你了的", add 6-12 months to timeline</li>
+  <li>"你会了就是你的portfolio" = You're doing 3 jobs for 1 salary. Congrats!</li>
+  <li>Email subject line "URGENT" = Not urgent. "urgent" = Very urgent.</li>
+  <li>CC'ing your boss = CYA mode activated</li>
+  <li>BCC'ing your work bestie = Gossip mode activated</li>
+</ul>
+
+<h2>RULE #2: LEAVE APPLICATION STRATEGY</h2>
+<ul>
+  <li>Apply 3 months in advance. Still might get rejected.</li>
+  <li>"Short of manpower" = Valid excuse year-round, apparently</li>
+  <li>Your 14 days annual leave = "A lot" according to management</li>
+  <li>MC on Monday = Suspicious. MC on Friday = VERY suspicious.</li>
+  <li>Emergency leave = Better have hospital photo evidence ready</li>
+</ul>
+
+<h2>RULE #3: MONTH-END CLOSING SURVIVAL</h2>
+<ul>
+  <li>Coffee consumption increases by 300%</li>
+  <li>Excel becomes your sworn enemy AND best friend</li>
+  <li>The phrase "balance不到" will haunt your dreams</li>
+  <li>带好Jayne = Your job description just expanded</li>
+  <li>做好两个BU的closing = Double the closing, double the pain</li>
+</ul>
+
+<h2>RULE #4: OFFICE POLITICS 101</h2>
+<ul>
+  <li>The Minion watches. The Minion reports. Be careful.</li>
+  <li>Smile and nod during meetings. Vent in bathroom later.</li>
+  <li>Your work friends > Your job. Prioritize accordingly.</li>
+  <li>When boss says "态度不行", it means you didn't say yes fast enough</li>
+</ul>
+
+<h2>RULE #5: ANNUAL DINNER SURVIVAL</h2>
+<ul>
+  <li>"Voluntary participation" is an oxymoron here</li>
+  <li>Rehearsals WILL eat your weekends. Accept it.</li>
+  <li>Dance teacher's "AGAIN!" = You'll hear it 47 times tonight</li>
+  <li>Winning is nice. But the real prize? The friends you make.</li>
+  <li>1st place, last place, doesn't matter - you survived another year</li>
+</ul>
+
+<h2>RULE #6: SANITY PRESERVATION</h2>
+<ul>
+  <li>Find your people. Hold them close. They're your lifeline.</li>
+  <li>Lunch breaks are SACRED. Protect them fiercely.</li>
+  <li>WhatsApp group chat = Free therapy session</li>
+  <li>When thinking "我做、我忍、我继续" - remember it's okay to NOT 继续</li>
+  <li>Update resume quarterly. Just in case. 😉</li>
+</ul>
+
+<h2>RULE #7: THE ULTIMATE TRUTH</h2>
+You are not a cow. You are not a horse. You're a human being.
+When the portfolio stops being worth it, remember:
+There's a whole world outside these walls.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<em>Document created: March 2021
+Last updated: Every single closing period
+Next update: Probably during the next crisis</em>
+
+<em>— Written by a survivor, for survivors 💛</em>
+  </div>
+</div>
+
+<!-- ===================== FRIENDS SCENE ===================== -->
+<div class="scene" id="friends-scene" style="display:none; background: linear-gradient(180deg, #0f0c29, #302b63, #24243e); padding: 5rem 2rem;">
+  <div class="fade-up" style="text-align:center; color:white; max-width:700px;">
+    <div class="chapter-tag">The Silver Lining</div>
+    <div class="chapter-title">But then... she found her people 💛</div>
+    <div class="chapter-body">
+      工作 so-so, 老板 sus, 可是认识了一群真正的好朋友。<br>
+      从此以后，公司变得不一样了。
+    </div>
+    <div class="emoji-row">🏕️ 🚗 🌊 ✈️ 🏔️</div>
+    <div class="chapter-body" style="font-size:0.9rem; color:rgba(255,255,255,0.6)">
+      旅行、露营、玩耍、吃饭。<br>She built a whole life <em>within</em> the job she was tolerating.
+    </div>
+    <div class="media-slot grid-3" style="max-width:900px; margin:2rem auto;">
+      <div data-slot-id="slot-0" onclick="openDriveManager('slot-0')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-1" onclick="openDriveManager('slot-1')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-2" onclick="openDriveManager('slot-2')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-3" onclick="openDriveManager('slot-3')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-4" onclick="openDriveManager('slot-4')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-5" onclick="openDriveManager('slot-5')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-6" onclick="openDriveManager('slot-6')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-7" onclick="openDriveManager('slot-7')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-8" onclick="openDriveManager('slot-8')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-9" onclick="openDriveManager('slot-9')" class="media-placeholder">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== YEAR 2022 DIVIDER ===================== -->
+<div class="year-divider" id="yr2022" data-year="2022" style="display:none;">
+  <span class="year-label">CHAPTER TWO</span>
+  2022
+</div>
+
+<!-- ===================== COMIC: ANNUAL DINNER 2022 ===================== -->
+<div class="comic-scene" id="comic-2022" style="display:none;">
+  <div class="comic-header">
+    <div class="comic-title">ANNUAL DINNER 2022</div>
+    <div class="comic-subtitle">The one where they trained like it was war. And won.</div>
+  </div>
+
+  <div style="max-width:900px; margin:0 auto;">
+    <!-- Full Comic Strip Image Slot -->
+    <div style="background:white; border:4px solid #000; border-radius:8px; overflow:hidden; margin-bottom:2rem;">
+      <div data-slot-id="slot-10" onclick="openDriveManager('slot-10')" class="media-placeholder comic-slot" style="border-radius:0; border:none;">
+      </div>
+    </div>
+
+    <div style="background:white; border:4px solid #000; border-radius:8px; overflow:hidden; padding:1.5rem;">
+      <div style="font-family:'Bangers',cursive; font-size:1.5rem; text-align:center; margin-bottom:1rem; color:#000;">
+        🎥 PERFORMANCE VIDEO
+      </div>
+      <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; background:#000; border-radius:4px;">
+        <iframe src="https://drive.google.com/file/d/1gkUdT3uaGxKGznSI1BqBjQVVZ951z4fH/preview?rm=minimal"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+          allow="autoplay; fullscreen"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== YEAR 2023 DIVIDER ===================== -->
+<div class="year-divider" id="yr2023" data-year="2023" style="display:none; background: #1a1a1a;">
+  <span class="year-label">CHAPTER THREE</span>
+  2023
+</div>
+
+<!-- ===================== FRIENDS LEAVING 2023 ===================== -->
+<div class="scene" id="friends-leaving" style="display:none;">
+  <div class="fade-up" style="text-align:center; color:white; max-width:700px; padding: 4rem 2rem;">
+    <div class="chapter-tag">2023 — The Thinning</div>
+    <div class="chapter-title">朋友们开始一个个离开</div>
+    <div class="chapter-body">
+      Slowly, the seats started emptying.<br>
+      The WhatsApp group stayed active though — 好在还有联系 💬
+    </div>
+
+    <div class="leaving-grid">
+      <div class="friend-card gone">
+        <div class="avatar">
+          <div data-slot-id="slot-11" onclick="openDriveManager('slot-11')" class="media-placeholder" style="width:60px; height:60px; aspect-ratio:1; border-radius:50%; margin:0;">
+          </div>
+        </div>
+        <div class="name">Sin Pei</div>
+        <div class="status">Resigned ✈️</div>
+      </div>
+      <div class="friend-card gone">
+        <div class="avatar">
+          <div data-slot-id="slot-12" onclick="openDriveManager('slot-12')" class="media-placeholder" style="width:60px; height:60px; aspect-ratio:1; border-radius:50%; margin:0;">
+          </div>
+        </div>
+        <div class="name">Joey</div>
+        <div class="status">Resigned 🌱</div>
+      </div>
+      <div class="friend-card gone">
+        <div class="avatar">
+          <div data-slot-id="slot-13" onclick="openDriveManager('slot-13')" class="media-placeholder" style="width:60px; height:60px; aspect-ratio:1; border-radius:50%; margin:0;">
+          </div>
+        </div>
+        <div class="name">Freon</div>
+        <div class="status">Resigned 🌸</div>
+      </div>
+      <div class="friend-card">
+        <div class="avatar">🧑</div>
+        <div class="name">Lynn</div>
+        <div class="status" style="color:rgba(255,255,255,0.5)">Still here 🐄</div>
+      </div>
+      <div class="friend-card">
+        <div class="avatar">💛</div>
+        <div class="name">Quen</div>
+        <div class="status" style="color:rgba(255,255,255,0.5)">Still here ❤️</div>
+      </div>
+      <div class="friend-card">
+        <div class="avatar">😊</div>
+        <div class="name">Others</div>
+        <div class="status" style="color:rgba(255,255,255,0.5); font-size:0.55rem; line-height:1.3;">Wanyee, Jacey, Wing, Rroy, Serene, Laila...</div>
+      </div>
+    </div>
+
+    <div class="media-slot grid-3" style="max-width:600px; margin:1.5rem auto;">
+      <div data-slot-id="slot-14" onclick="openDriveManager('slot-14')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-15" onclick="openDriveManager('slot-15')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-16" onclick="openDriveManager('slot-16')" class="media-placeholder">
+      </div>
+    </div>
+
+    <div style="font-size:1.2rem; margin-top:1rem; color:rgba(255,255,255,0.7);">
+      好彩公司还有好友。日子继续。<br>
+      <span style="font-size:0.9rem; color:rgba(255,255,255,0.4);">The cow keeps grazing. 🐄</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PUA BOSS SCENE ===================== -->
+<div id="work-continues" style="display:none; background: linear-gradient(180deg, #1c1c2e, #2d2d44); min-height:100vh; padding:4rem 2rem; color:white; text-align:center;">
+  <div class="fade-up">
+    <div class="mood-indicator">⚙️ STATUS: HAPPY COW MODE ACTIVATED</div>
+    <div class="chapter-title" style="font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,3rem); font-style:italic; color:white; margin-bottom:1rem; max-width:700px; margin:0 auto 1rem;">
+      老板继续 PUA,<br>Lynn 继续做快乐牛马
+    </div>
+    <div class="cow-big">🐄</div>
+    <div style="font-size:0.9rem; color:rgba(255,255,255,0.5); font-family:'Space Mono',monospace; margin-bottom:2rem;">
+      Boss Greatest Hits (Unprompted, Unhinged Edition):
+    </div>
+    <div class="pua-quotes" id="puaQuotes">
+      <div class="pua-quote">
+        "他会做东西的，<strong>可是态度不行。</strong>"
+        <div class="quote-source">— Boss, casually, about you, in front of others</div>
+      </div>
+      <div class="pua-quote">
+        "我要升你了的。<strong>你是个要做 AM 的人。</strong>"
+        <div class="quote-source">— Boss, every quarter, nothing ever happens</div>
+      </div>
+      <div class="pua-quote">
+        "你会了就是<strong>你的 portfolio。</strong>"
+        <div class="quote-source">— Boss, justifying why you do 3 people's jobs for 1 person's pay</div>
+      </div>
+      <div class="pua-quote">
+        "你已经<strong>拿很多假了。</strong>"
+        <div class="quote-source">— The Minion, rejecting your very legal, very earned annual leave</div>
+      </div>
+    </div>
+    <div style="margin-top:2rem; font-size:1rem; color:rgba(255,255,255,0.5);">
+      我做、我忍、我继续。🐄✨
+    </div>
+  </div>
+</div>
+
+<!-- ===================== COMIC: ANNUAL DINNER 2023 (JAPAN) ===================== -->
+<div class="comic-scene" id="comic-2023" style="display:none; background: #e8f4f8;">
+  <div class="comic-header">
+    <div class="comic-title" style="color:#1565C0;">ANNUAL DINNER 2023</div>
+    <div class="comic-subtitle">Japan Theme. Villain dancer. A Drop of Water. Chaos.</div>
+  </div>
+
+  <div style="max-width:900px; margin:0 auto;">
+    <div style="background:white; border:4px solid #000; border-radius:8px; overflow:hidden; margin-bottom:2rem;">
+      <div data-slot-id="slot-17" onclick="openDriveManager('slot-17')" class="media-placeholder comic-slot" style="border-radius:0; border:none;">
+      </div>
+    </div>
+
+    <div style="background:white; border:4px solid #000; border-radius:8px; overflow:hidden; padding:1.5rem;">
+      <div style="font-family:'Bangers',cursive; font-size:1.5rem; text-align:center; margin-bottom:1rem; color:#000;">
+        🎥 PERFORMANCE VIDEO
+      </div>
+      <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; background:#000; border-radius:4px;">
+        <iframe src="https://drive.google.com/file/d/1hq1vG3G8ZaaXg2oK8VN-gjbNVi1l0_EJ/preview?rm=minimal"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+          allow="autoplay; fullscreen"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== YEAR 2024 DIVIDER ===================== -->
+<div class="year-divider" id="yr2024" data-year="2024" style="display:none; background: #0d0d1a;">
+  <span class="year-label">CHAPTER FOUR</span>
+  2024
+</div>
+
+<!-- ===================== QUEN LEAVES ===================== -->
+<div class="scene" id="quen-leaves" style="display:none; background: linear-gradient(180deg, #0d0d1a, #1a0a0a); padding:5rem 2rem; color:white; text-align:center;">
+  <div class="fade-up" style="max-width:600px;">
+    <div class="chapter-tag">2024 — The One That Hurt</div>
+    <div class="chapter-title" style="font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.5rem); font-style:italic; color:white; max-width:600px; margin:0 auto 1rem;">
+      Then Quen left. 💔
+    </div>
+    <div style="font-size:3.5rem; margin:1.5rem 0;">🫂</div>
+    <div class="chapter-body" style="font-size:1rem; color:rgba(255,255,255,0.7); max-width:500px; margin:0 auto; line-height:2;">
+      朋友陆陆续续走了，<br>
+      但最好的朋友辞职，那种感觉不一样。<br><br>
+      <span style="color:rgba(255,255,255,0.4); font-size:0.9rem;">公司还有新朋友, 好彩。<br>But it's not the same lah. 😔</span>
+    </div>
+    <div class="media-slot grid-2" style="max-width:420px; margin:2rem auto;">
+      <div data-slot-id="slot-18" onclick="openDriveManager('slot-18')" class="media-placeholder">
+      </div>
+      <div data-slot-id="slot-19" onclick="openDriveManager('slot-19')" class="media-placeholder">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== COMIC: ANNUAL DINNER 2024 ===================== -->
+<div class="comic-scene" id="comic-2024" style="display:none; background: #fff8e1;">
+  <div class="comic-header">
+    <div class="comic-title">ANNUAL DINNER 2024</div>
+    <div class="comic-subtitle">Lynn's fave choreographer. Full commitment. Stunning prep. 3rd place. 🙄</div>
+  </div>
+
+  <div style="max-width:900px; margin:0 auto;">
+    <div style="background:white; border:4px solid #000; border-radius:8px; overflow:hidden; margin-bottom:2rem;">
+      <div data-slot-id="slot-20" onclick="openDriveManager('slot-20')" class="media-placeholder comic-slot" style="border-radius:0; border:none;">
+      </div>
+    </div>
+    <div style="background:white; border:4px solid #000; border-radius:8px; overflow:hidden; padding:1.5rem;">
+      <div style="font-family:'Bangers',cursive; font-size:1.5rem; text-align:center; margin-bottom:1rem; color:#000;">🎥 PERFORMANCE VIDEO</div>
+      <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; background:#000; border-radius:4px;">
+        <iframe src="https://drive.google.com/file/d/1hn7ljVZ0DuLq6cjEJa1R_EoV-V_nk5aR/preview?rm=minimal"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+          allow="autoplay; fullscreen"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== JOB HUNT ===================== -->
+<div id="job-hunt" style="display:none; background: #f0f0f0; min-height:100vh; padding:3rem 1.5rem;">
+  <div class="fade-up">
+    <div style="text-align:center; margin-bottom:2rem;">
+      <div style="font-family:'Bangers',cursive; font-size:clamp(2rem,6vw,4rem); color:#1a1a2e; letter-spacing:0.05em;">THE GREAT ESCAPE ATTEMPT 🚪</div>
+      <div style="font-family:'Space Mono',monospace; font-size:0.8rem; color:#888; margin-top:0.5rem;">2025 · Codename: Find A Finance Role Before I Lose My Mind</div>
+    </div>
+
+    <div class="browser-window">
+      <div class="browser-bar">
+        <div class="browser-dots">
+          <div class="browser-dot bd-red"></div>
+          <div class="browser-dot bd-yellow"></div>
+          <div class="browser-dot bd-green"></div>
+        </div>
+        <div class="browser-url">jobstreet.com.my — Senior Executive / AM · Finance · KL · 2025</div>
+      </div>
+      <div class="browser-content">
+        <div style="font-family:'Space Mono',monospace; font-size:0.75rem; color:#888; margin-bottom:1.2rem;">Showing 312 results · Sorted by: Please Just Be Normal</div>
+
+        <!-- Job 1: Myanmar HQ -->
+        <div class="job-listing" style="border-left: 4px solid #e30613;">
+          <div class="job-title">Senior Executive, Group Finance</div>
+          <div class="job-company">🌏 Definitely Legit Holdings Sdn Bhd · HQ: Yangon, Myanmar · Office: Johor Bahru</div>
+          <div style="margin:0.4rem 0;"><span class="job-tag tag-ok">Interview ✓</span><span class="job-tag tag-weird">Interesting Vibes 👀</span></div>
+          <div class="interview-note">
+            🎥 Video call starts. Interviewer joins in a <strong>cap and hoodie.</strong> Background: a bedroom wall.<br>
+            "So, tell me about yourself—" <em>*cat walks across keyboard*</em><br>
+            Lynn, internally: <strong>我在面试还是在点外卖？</strong> 😶
+          </div>
+        </div>
+
+        <!-- Job 2: OT culture -->
+        <div class="job-listing" style="border-left: 4px solid #E65100;">
+          <div class="job-title">Assistant Manager, Finance & Reporting</div>
+          <div class="job-company">💼 Progressive Corp Pte Ltd · Raffles Place, Singapore</div>
+          <div style="margin:0.4rem 0;"><span class="job-tag tag-ok">Offer Received 📄</span><span class="job-tag tag-red">But Wait... ⚠️</span></div>
+          <div class="interview-note">
+            ✅ Package good. Benefits good. Office nice. Boss seems normal.<br>
+            Then HR casually drops: <strong>"Oh by the way, OT is part of our company culture."</strong><br>
+            <em>"We're a family here!"</em> 🚩🚩🚩<br>
+            Lynn: <strong>Didn't I just leave this exact situation??</strong> 😤
+          </div>
+        </div>
+
+        <!-- Job 3: Low pay -->
+        <div class="job-listing" style="border-left: 4px solid #1565C0;">
+          <div class="job-title">Senior Executive, Financial Planning & Analysis</div>
+          <div class="job-company">⭐ Actually Great Company Pte Ltd · Tanjong Pagar, Singapore</div>
+          <div style="margin:0.4rem 0;"><span class="job-tag tag-ok">Boss is Amazing 😍</span><span class="job-tag tag-ok">Work-life Balance ✅</span><span class="job-tag tag-red">Offer: 💀</span></div>
+          <div class="interview-note">
+            Perfect role. Great team. Boss actually listens. No red flags AT ALL.<br>
+            Offer letter arrives. Lynn opens it excitedly.<br>
+            <strong>Salary: RM 2,8—</strong><br>
+            <em>*document closes itself*</em><br>
+            Lynn: <strong>TOLONGLAH. 你当我是实习生吗？？</strong> 😭
+          </div>
+        </div>
+
+        <!-- Job 4: Too many rounds -->
+        <div class="job-listing" style="border-left: 4px solid #6a1b9a;">
+          <div class="job-title">AM, Group Reporting & Consolidation</div>
+          <div class="job-company">🏢 Enterprise Solutions Berhad · Iskandar Puteri, Johor Bahru</div>
+          <div style="margin:0.4rem 0;"><span class="job-tag tag-weird">7 Interview Rounds 🫠</span></div>
+          <div class="interview-note">
+            Round 1: HR screening ✅<br>
+            Round 2: Manager interview ✅<br>
+            Round 3: Technical test (3 hours) ✅<br>
+            Round 4: CFO interview ✅<br>
+            Round 5: <em>"Can you meet the CEO?"</em> 😐<br>
+            Round 6: <em>"Panel presentation, 20 slides please"</em> 🙃<br>
+            Round 7: <strong>ghosted.</strong> 👻<br>
+            Lynn: <strong>我又不是去做 PM 的。</strong>
+          </div>
+        </div>
+
+        <!-- Job 5: Misleading JD -->
+        <div class="job-listing" style="border-left: 4px solid #2e7d32;">
+          <div class="job-title">Finance Executive (Senior Level)</div>
+          <div class="job-company">🎭 Mysterious Ventures Sdn Bhd · Medini, Johor Bahru</div>
+          <div style="margin:0.4rem 0;"><span class="job-tag tag-weird">JD Was a Lie 📋</span></div>
+          <div class="interview-note">
+            Job description: <em>"Finance reporting, AP/AR, stakeholder management."</em><br>
+            Actual job revealed in interview: <strong>"Oh and also marketing, event planning, and managing the boss's schedule."</strong><br>
+            Lynn: <strong>So… PA with Excel skills?</strong> 🙂
+          </div>
+        </div>
+
+        <!-- Job 6: Ghost -->
+        <div class="job-listing" style="border-left: 4px solid #999; opacity:0.7;">
+          <div class="job-title">Senior Finance Executive</div>
+          <div class="job-company">❓ [Company Name Hidden] · One-North, Singapore</div>
+          <div style="margin:0.4rem 0;"><span class="job-tag tag-red">Applied 3 months ago 👻</span></div>
+          <div class="interview-note" style="font-style:italic; color:#aaa;">
+            Still waiting for a reply.<br>
+            It has been 84 days.<br>
+            <strong>hello?</strong>
+          </div>
+        </div>
+
+        <div style="text-align:center; padding:1.5rem 0 0.5rem; font-family:'Space Mono',monospace; font-size:0.7rem; color:#bbb; border-top:1px solid #eee; margin-top:1rem;">
+          — End of results. Try widening your search? 🙃 —
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:2rem; font-family:'Comic Neue',cursive; font-size:1.1rem; color:#555;">
+      一直遇到奇怪的面试。<br>
+      <span style="font-size:0.9rem; color:#888;">But something good is coming. Just not yet... 🌱</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== YEAR 2025 DIVIDER ===================== -->
+<div class="year-divider" id="yr2025" data-year="2025" style="display:none; background: linear-gradient(135deg, #1a1a2e, #c9a84c);">
+  <span class="year-label">FINAL CHAPTER</span>
+  2025
+</div>
+
+<!-- ===================== COMIC: ANNUAL DINNER 2025 — THE LAST DANCE ===================== -->
+<div class="comic-scene" id="comic-2025" style="display:none; background: linear-gradient(180deg, #1a0a2e, #2d1b69); color:white;">
+  <div class="comic-header">
+    <div class="comic-title" style="color:var(--sp-gold); text-shadow: 0 0 30px rgba(201,168,76,0.5);">THE LAST DANCE</div>
+    <div class="comic-subtitle" style="color:rgba(255,255,255,0.6);">Annual Dinner 2025. Lynn's finale. Let's make it count.</div>
+  </div>
+
+  <div style="max-width:900px; margin:0 auto;">
+    <div style="background:rgba(255,255,255,0.05); border:4px solid var(--sp-gold); border-radius:8px; overflow:hidden; margin-bottom:2rem;">
+      <div data-slot-id="slot-21" onclick="openDriveManager('slot-21')" class="media-placeholder comic-slot" style="border-radius:0; border:none; background:rgba(201,168,76,0.05);">
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.05); border:4px solid var(--sp-gold); border-radius:8px; overflow:hidden; padding:1.5rem;">
+      <div style="font-family:'Bangers',cursive; font-size:1.5rem; text-align:center; margin-bottom:1rem; color:var(--sp-gold);">🎥 PERFORMANCE VIDEO</div>
+      <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; background:#000; border-radius:4px;">
+        <iframe src="https://drive.google.com/file/d/19d-q6WnN2AnQJwYXYJ1pHlS07X7-K3Oc/preview?rm=minimal"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+          allow="autoplay; fullscreen"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FAREWELL SCROLLY ===================== -->
+<div id="farewell" style="display:none;">
+  <div class="fade-up" style="max-width:700px; width:100%;">
+    <div class="chapter-tag" style="color:rgba(255,255,255,0.4);">The End</div>
+    <div style="font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.5rem); font-style:italic; color:white; text-align:center; margin-bottom:2rem; line-height:1.3;">
+      完美结局，<br>优雅离开。
+    </div>
+
+    <div class="farewell-grid">
+      <div class="memory-card">
+        <div data-slot-id="slot-22" onclick="openDriveManager('slot-22')" class="media-placeholder" style="aspect-ratio:1; border:none; border-radius:12px;">
+        </div>
+        <div class="memory-label">Last Day 📦</div>
+      </div>
+      <div class="memory-card">
+        <div data-slot-id="slot-23" onclick="openDriveManager('slot-23')" class="media-placeholder" style="aspect-ratio:1; border:none; border-radius:12px;">
+        </div>
+        <div class="memory-label">The Squad 💛</div>
+      </div>
+      <div class="memory-card">
+        <div data-slot-id="slot-24" onclick="openDriveManager('slot-24')" class="media-placeholder" style="aspect-ratio:1; border:none; border-radius:12px;">
+        </div>
+        <div class="memory-label">Farewell Party 🎊</div>
+      </div>
+      <div class="memory-card">
+        <div data-slot-id="slot-25" onclick="openDriveManager('slot-25')" class="media-placeholder" style="aspect-ratio:1; border:none; border-radius:12px;">
+        </div>
+        <div class="memory-label">The Legacy 🏆</div>
+      </div>
+      <div class="memory-card">
+        <div data-slot-id="slot-26" onclick="openDriveManager('slot-26')" class="media-placeholder" style="aspect-ratio:1; border:none; border-radius:12px;">
+        </div>
+        <div class="memory-label">Memories 🌍</div>
+      </div>
+      <div class="memory-card">
+        <div data-slot-id="slot-27" onclick="openDriveManager('slot-27')" class="media-placeholder" style="aspect-ratio:1; border:none; border-radius:12px;">
+        </div>
+        <div class="memory-label">Star Energy ✨</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:2.5rem; color:rgba(255,255,255,0.6); font-size:1rem; line-height:2;">
+      从2021年到今天，<br>
+      有过泪水，有过欢笑，<br>
+      有过奇葩老板，有过真心朋友。<br><br>
+      <span style="color:rgba(255,255,255,0.4); font-size:0.9rem;">She stayed not for the company, but for the people. 💛<br>
+      And when it was time — she left with her head held high.</span>
+    </div>
+
+    <div style="margin-top:3rem; text-align:center;">
+      <button onclick="doLogout()" style="
+        background: transparent;
+        border: 2px solid rgba(255,255,255,0.3);
+        color: rgba(255,255,255,0.5);
+        font-family: 'Space Mono', monospace;
+        font-size: 0.85rem;
+        letter-spacing: 0.2em;
+        padding: 1rem 2.5rem;
+        border-radius: 100px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-transform: uppercase;
+      "
+      onmouseover="this.style.borderColor='rgba(255,255,255,0.8)'; this.style.color='white'; this.style.background='rgba(255,255,255,0.08)';"
+      onmouseout="this.style.borderColor='rgba(255,255,255,0.3)'; this.style.color='rgba(255,255,255,0.5)'; this.style.background='transparent';">
+        ⏻ &nbsp; Click to Logout
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== LOGOUT / BYE BITCHES ===================== -->
+<div id="logout" style="display:none;">
+  <div class="logout-os">[ S P SETIA INTRANET — SESSION TERMINATED ]</div>
+  <div class="logout-name">Yeo Lyn Ying · 2021 — 2025</div>
+  <div class="logout-status">— LOGGED OUT —</div>
+  <div class="bye-bitches">BYE BITCHES</div>
+  <div class="bye-emoji">👋😄✌️</div>
+  <div class="bye-years">2021 &nbsp;·&nbsp; 2022 &nbsp;·&nbsp; 2023 &nbsp;·&nbsp; 2024 &nbsp;·&nbsp; 2025</div>
+</div>
+
+<!-- ===================== XIAOTING POPUP ===================== -->
+<div id="xiaoting-overlay" style="
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.85); z-index:9999;
+  align-items:center; justify-content:center;
+  backdrop-filter: blur(6px);
+" onclick="dismissXiaoting()">
+  <div onclick="event.stopPropagation()" style="
+    background: #0a1628;
+    border: 3px solid var(--sp-gold);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  ">
+    <div style="font-size:3.5rem; margin-bottom:1rem;">🕵️‍♀️</div>
+    <div style="
+      font-family:'Bangers', cursive;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--sp-gold);
+      letter-spacing: 0.05em;
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    ">
+      Xiaoting,<br>where's my dance cover video???????
+    </div>
+    <div style="font-size:1.8rem; margin-bottom:1.5rem; animation: shake 0.5s infinite;">📹📹📹</div>
+    <div style="
+      font-family:'Space Mono', monospace;
+      font-size:0.7rem;
+      color:rgba(255,255,255,0.35);
+      margin-bottom:2rem;
+      line-height:1.8;
+    ">
+      This message will self-destruct after<br>you send the video. 🙂
+    </div>
+    <button onclick="dismissXiaoting()" style="
+      background: var(--sp-red);
+      color: white;
+      border: none;
+      border-radius: 100px;
+      padding: 0.8rem 2rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      transition: all 0.2s;
+    "
+    onmouseover="this.style.background='#ff1a2a'"
+    onmouseout="this.style.background='var(--sp-red)'">
+      OK OK I'LL SEND IT 😭
+    </button>
+  </div>
+</div>
+
+<style>
+  @keyframes popIn {
+    from { opacity:0; transform:scale(0.5) rotate(-3deg); }
+    to   { opacity:1; transform:scale(1) rotate(0deg); }
+  }
+  @keyframes shake {
+    0%,100% { transform: rotate(0deg); }
+    25%     { transform: rotate(-15deg); }
+    75%     { transform: rotate(15deg); }
+  }
+</style>
+
+
+<script>
+  // ===================== BOOT SEQUENCE =====================
+  const bootLines = [
+    { text: "S P SETIA INTRANET SYSTEM v2021.03.01", delay: 0, color: 'success' },
+    { text: "Initializing corporate database...", delay: 400, color: 'success' },
+    { text: "Loading mandatory fun modules...", delay: 800, color: 'success' },
+    { text: "Checking leave balance... [WARNING: balance too high]", delay: 1300, color: 'warning' },
+    { text: "Loading boss.exe... [WARNING: gaslighting enabled]", delay: 1800, color: 'warning' },
+    { text: "Loading minion.exe... [WARNING: politics.dll found]", delay: 2300, color: 'warning' },
+    { text: "Scanning for talent... ████████████ 100%", delay: 2900, color: 'success' },
+    { text: "Employee profile detected: YEO LYN YING", delay: 3400, color: 'success' },
+    { text: "Status: FRESH GRAD | Department: Group Finance", delay: 3700, color: 'success' },
+    { text: "Welcome. The journey begins now.", delay: 4200, color: 'success' },
+  ];
+
+  const bootDiv = document.getElementById('bootText');
+  const pressEnter = document.getElementById('pressEnter');
+
+  bootLines.forEach((line, i) => {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'boot-line' + (line.color === 'warning' ? ' warning' : '');
+      el.textContent = '> ' + line.text;
+      bootDiv.appendChild(el);
+      requestAnimationFrame(() => el.style.opacity = '1');
+      if (i === bootLines.length - 1) {
+        setTimeout(() => pressEnter.style.display = 'block', 500);
+      }
+    }, line.delay);
+  });
+
+  document.getElementById('boot').addEventListener('click', showLogin);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && document.getElementById('boot').style.display !== 'none') showLogin();
+  });
+
+  function showLogin() {
+    document.getElementById('boot').style.display = 'none';
+    document.getElementById('login').style.display = 'flex';
+    document.getElementById('loginDate').textContent = new Date(2021, 2, 1).toLocaleDateString('en-MY', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    setTimeout(() => {
+      document.getElementById('pwInput').focus();
+    }, 300);
+    document.getElementById('pwInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') doLogin();
+    });
+  }
+
+  function doLogin() {
+    const input = document.getElementById('pwInput');
+    const password = input.value;
+    
+    // Password check
+    if (password !== 'a123') {
+      input.style.borderColor = '#e30613';
+      input.value = '';
+      input.placeholder = '❌ Incorrect password';
+      setTimeout(() => {
+        input.placeholder = '••••••••';
+        input.style.borderColor = 'rgba(255,255,255,0.3)';
+      }, 2000);
+      return;
+    }
+    
+    input.value = '••••••••';
+    input.style.borderColor = '#0066cc';
+    setTimeout(() => {
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('yr2021').style.display = 'block';
+      document.getElementById('desktop').style.display = 'flex';
+      document.getElementById('desktop').style.minHeight = '100vh';
+      updateTaskbarTime();
+      setInterval(updateTaskbarTime, 1000);
+      initScrollReveal();
+      showAllScenes();
+    }, 800);
+  }
+
+  function updateTaskbarTime() {
+    const now = new Date();
+    document.getElementById('taskbarTime').textContent = now.toLocaleTimeString('en-MY', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function showAllScenes() {
+    const scenes = ['friends-scene','yr2022','comic-2022','yr2023','friends-leaving',
+                    'work-continues','comic-2023','yr2024','quen-leaves','comic-2024',
+                    'job-hunt','yr2025','comic-2025','farewell','logout'];
+    scenes.forEach(id => {
+      document.getElementById(id).style.display = '';
+      if (['friends-scene','farewell','logout'].includes(id)) {
+        document.getElementById(id).style.display = 'flex';
+      }
+      if (['work-continues','job-hunt'].includes(id)) {
+        document.getElementById(id).style.display = 'block';
+      }
+    });
+    // Re-assign slot IDs now that all scenes are visible, then restore saved media
+    setTimeout(() => {
+      initSlotPlaceholders();
+      restoreAllDriveImages();
+    }, 100);
+  }
+
+  // ===================== EMAIL WINDOWS =====================
+  function openEmail(type) {
+    closeEmail();
+    const el = document.getElementById('email-' + type);
+    const overlay = document.getElementById('overlay');
+    if (el) {
+      overlay.classList.add('open');
+      el.style.display = 'flex';
+      requestAnimationFrame(() => el.classList.add('open'));
+    }
+  }
+
+  function closeEmail() {
+    document.querySelectorAll('.email-window').forEach(w => {
+      w.classList.remove('open');
+      setTimeout(() => { if (!w.classList.contains('open')) w.style.display = 'none'; }, 300);
+    });
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  // ===================== NOTEPAD WINDOW =====================
+  function openNotepad() {
+    closeEmail();
+    closeNotepad();
+    const notepad = document.getElementById('notepad-survival');
+    const overlay = document.getElementById('overlay');
+    if (notepad) {
+      overlay.classList.add('open');
+      notepad.style.display = 'flex';
+      requestAnimationFrame(() => notepad.classList.add('open'));
+    }
+  }
+
+  function closeNotepad() {
+    document.querySelectorAll('.notepad-window').forEach(w => {
+      w.classList.remove('open');
+      setTimeout(() => { if (!w.classList.contains('open')) w.style.display = 'none'; }, 300);
+    });
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  // Make overlay close notepad too
+  document.getElementById('overlay').addEventListener('click', function() {
+    closeEmail();
+    closeNotepad();
+  });
+
+  function scrollToNext() {
+    document.getElementById('friends-scene').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // ===================== SCROLL REVEAL =====================
+  function initScrollReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    document.querySelectorAll('.pua-quote').forEach(el => observer.observe(el));
+  }
+
+  // Hide scroll hint after first scroll
+  window.addEventListener('scroll', () => {
+    const hint = document.getElementById('scrollHint');
+    if (window.scrollY > 200) hint.style.opacity = '0';
+    else hint.style.opacity = '1';
+  });
+
+  // ===================== GOOGLE DRIVE IMAGE MANAGER =====================
+
+  const SLOT_LABELS = {
+    'slot-0':  'Friend group photo',
+    'slot-1':  'Camping trip',
+    'slot-2':  'Travel together',
+    'slot-3':  'Food adventures',
+    'slot-4':  'Celebrations',
+    'slot-5':  'Weekend escapes',
+    'slot-6':  'Coffee breaks',
+    'slot-7':  'Hang out sessions',
+    'slot-8':  'Birthday parties',
+    'slot-9':  'Random happy moments',
+    'slot-10': 'AD2022 — Comic Strip',
+    'slot-11': 'Sin Pei — Profile Pic',
+    'slot-12': 'Joey — Profile Pic',
+    'slot-13': 'Freon — Profile Pic',
+    'slot-14': 'Other friends',
+    'slot-15': 'Farewell moments',
+    'slot-16': 'Still keeping in touch',
+    'slot-17': 'AD2023 — Comic Strip',
+    'slot-18': 'Lynn & Quen photo',
+    'slot-19': 'Farewell memory',
+    'slot-20': 'AD2024 — Comic Strip',
+    'slot-21': 'AD2025 — Comic Strip',
+    'slot-22': 'Last Day at Office',
+    'slot-23': 'The Squad',
+    'slot-24': 'Farewell Party',
+    'slot-25': 'The Legacy',
+    'slot-26': 'Memories',
+    'slot-27': 'Star Energy',
+  };
+
+  // Storage key for Drive links
+  const DRIVE_STORAGE_KEY = 'lynnDriveLinks';
+
+  function getDriveLinks() {
+    try { return JSON.parse(localStorage.getItem(DRIVE_STORAGE_KEY) || '{}'); }
+    catch(e) { return {}; }
+  }
+
+  function saveDriveLinks(links) {
+    localStorage.setItem(DRIVE_STORAGE_KEY, JSON.stringify(links));
+  }
+
+  function extractDriveId(input) {
+    input = input.trim();
+    // Full share URL: https://drive.google.com/file/d/FILE_ID/view
+    const m = input.match(/\/d\/([a-zA-Z0-9_-]{20,})/);
+    if (m) return m[1];
+    // Already just an ID
+    if (/^[a-zA-Z0-9_-]{20,}$/.test(input)) return input;
+    return null;
+  }
+
+  function getDriveImageUrl(fileId) {
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1600`;
+  }
+
+  function renderDriveImage(slotEl, fileId) {
+    slotEl.querySelectorAll('img, video, .slot-placeholder').forEach(el => el.remove());
+    const img = document.createElement('img');
+    img.src = getDriveImageUrl(fileId);
+    img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:1;';
+    img.onerror = () => {
+      img.remove();
+      showSlotPlaceholder(slotEl, '❌ Image failed to load');
+    };
+    slotEl.appendChild(img);
+  }
+
+  function showSlotPlaceholder(slotEl, text) {
+    slotEl.querySelectorAll('.slot-placeholder').forEach(el => el.remove());
+    const ph = document.createElement('div');
+    ph.className = 'slot-placeholder';
+    ph.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;pointer-events:none;z-index:2;';
+    ph.innerHTML = `<div style="font-size:1.5rem;">🔗</div><div style="font-size:0.65rem;font-family:Space Mono,monospace;color:rgba(255,255,255,0.5);text-align:center;padding:0 0.5rem;">${text}</div>`;
+    slotEl.appendChild(ph);
+  }
+
+  function restoreAllDriveImages() {
+    const links = getDriveLinks();
+    Object.entries(links).forEach(([slotId, fileId]) => {
+      const slotEl = document.querySelector(`[data-slot-id="${slotId}"]`);
+      if (slotEl && fileId) renderDriveImage(slotEl, fileId);
+    });
+  }
+
+  // Initialize placeholder icons on all slots
+  function initSlotPlaceholders() {
+    document.querySelectorAll('[data-slot-id]').forEach(slotEl => {
+      const slotId = slotEl.dataset.slotId;
+      const label = SLOT_LABELS[slotId] || slotId;
+      showSlotPlaceholder(slotEl, `Click to add photo\n${label}`);
+    });
+  }
+
+  // ===================== DRIVE MANAGER PANEL =====================
+  function openDriveManager(slotId) {
+    const panel = document.getElementById('drive-manager');
+    const links = getDriveLinks();
+    const currentId = links[slotId] || '';
+    const label = SLOT_LABELS[slotId] || slotId;
+
+    document.getElementById('dm-title').textContent = label;
+    document.getElementById('dm-input').value = currentId;
+    document.getElementById('dm-slot-id').value = slotId;
+    document.getElementById('dm-preview-img').src = currentId ? getDriveImageUrl(currentId) : '';
+    document.getElementById('dm-preview-img').style.display = currentId ? 'block' : 'none';
+    document.getElementById('dm-preview-empty').style.display = currentId ? 'none' : 'flex';
+
+    panel.style.display = 'flex';
+  }
+
+  function closeDriveManager() {
+    document.getElementById('drive-manager').style.display = 'none';
+  }
+
+  function dmPreview() {
+    const input = document.getElementById('dm-input').value;
+    const fileId = extractDriveId(input);
+    const previewImg = document.getElementById('dm-preview-img');
+    const previewEmpty = document.getElementById('dm-preview-empty');
+    if (fileId) {
+      previewImg.src = getDriveImageUrl(fileId);
+      previewImg.style.display = 'block';
+      previewEmpty.style.display = 'none';
+    } else {
+      previewImg.style.display = 'none';
+      previewEmpty.style.display = 'flex';
+      previewEmpty.innerHTML = '<span style="color:#e30613;">⚠️ Invalid Drive link</span>';
+    }
+  }
+
+  function dmSave() {
+    const slotId = document.getElementById('dm-slot-id').value;
+    const input = document.getElementById('dm-input').value.trim();
+    const fileId = extractDriveId(input);
+
+    if (!fileId && input !== '') {
+      alert('Invalid Google Drive link. Please paste the full share URL.');
+      return;
+    }
+
+    const links = getDriveLinks();
+    if (fileId) {
+      links[slotId] = fileId;
+    } else {
+      delete links[slotId];
+    }
+    saveDriveLinks(links);
+
+    // Update the slot
+    const slotEl = document.querySelector(`[data-slot-id="${slotId}"]`);
+    if (slotEl) {
+      if (fileId) {
+        renderDriveImage(slotEl, fileId);
+      } else {
+        slotEl.querySelectorAll('img, video').forEach(el => el.remove());
+        showSlotPlaceholder(slotEl, `Click to add photo\n${SLOT_LABELS[slotId] || slotId}`);
+      }
+    }
+    closeDriveManager();
+  }
+
+  function dmRemove() {
+    const slotId = document.getElementById('dm-slot-id').value;
+    document.getElementById('dm-input').value = '';
+    document.getElementById('dm-preview-img').style.display = 'none';
+    document.getElementById('dm-preview-empty').style.display = 'flex';
+    document.getElementById('dm-preview-empty').innerHTML = '<span style="font-size:1.5rem;">🖼️</span><span>No image</span>';
+    
+    const links = getDriveLinks();
+    delete links[slotId];
+    saveDriveLinks(links);
+
+    const slotEl = document.querySelector(`[data-slot-id="${slotId}"]`);
+    if (slotEl) {
+      slotEl.querySelectorAll('img, video').forEach(el => el.remove());
+      showSlotPlaceholder(slotEl, `Click to add photo\n${SLOT_LABELS[slotId] || slotId}`);
+    }
+    closeDriveManager();
+  }
+
+  // ===================== LOGOUT FLOW =====================
+  // ===================== LOGOUT FLOW =====================
+  // ===================== LOGOUT FLOW =====================
+  function doLogout() {
+    // Scroll to logout screen first
+    document.getElementById('logout').scrollIntoView({ behavior: 'smooth' });
+    // Then pop the Xiaoting message after scroll completes
+    setTimeout(() => {
+      const overlay = document.getElementById('xiaoting-overlay');
+      overlay.style.display = 'flex';
+    }, 1200);
+  }
+
+  function dismissXiaoting() {
+    document.getElementById('xiaoting-overlay').style.display = 'none';
+  }
+
+  // ===================== EXPORT WITH PHOTOS BAKED IN =====================
+  async function exportWithPhotos() {
+    const btn = document.getElementById('export-btn');
+    btn.textContent = '⏳ Baking photos...';
+    btn.disabled = true;
+
+    try {
+      const allMedia = await loadAllMedia();
+
+      if (allMedia.length === 0) {
+        alert('No photos found! Upload your photos first, then export.');
+        btn.textContent = '💾 Export with Photos';
+        btn.disabled = false;
+        return;
+      }
+
+      // Temporarily reset DOM to pre-login state for clean snapshot
+      const bootEl = document.getElementById('boot');
+      const loginEl = document.getElementById('login');
+      const yr2021El = document.getElementById('yr2021');
+      const desktopEl = document.getElementById('desktop');
+
+      const bootDisplay = bootEl.style.display;
+      const loginDisplay = loginEl.style.display;
+      const yr2021Display = yr2021El ? yr2021El.style.display : '';
+      const desktopDisplay = desktopEl.style.display;
+
+      // Reset to pre-login state
+      bootEl.style.display = '';
+      loginEl.style.display = 'none';
+      if (yr2021El) yr2021El.style.display = 'none';
+      desktopEl.style.display = 'none';
+
+      // Also hide all story scenes
+      const sceneIds = ['yr2022','yr2023','yr2024','yr2025',
+        'friends-scene','comic-2022','comic-2023','friends-leaving',
+        'work-continues','comic-2024','quen-leaves','job-hunt',
+        'comic-2025','farewell','logout'];
+      const sceneDisplays = {};
+      sceneIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { sceneDisplays[id] = el.style.display; el.style.display = 'none'; }
+      });
+
+      // Capture the DOM now (boot visible, everything else hidden)
+      let html = document.documentElement.outerHTML;
+
+      // Restore everything back to logged-in state
+      bootEl.style.display = bootDisplay;
+      loginEl.style.display = loginDisplay;
+      if (yr2021El) yr2021El.style.display = yr2021Display;
+      desktopEl.style.display = desktopDisplay;
+      sceneIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = sceneDisplays[id];
+      });
+
+      // For each saved photo, inject it as preloaded data into its slot
+      allMedia.forEach(({ slotId, dataURL, type }) => {
+        const escaped = dataURL.replace(/"/g, '&quot;');
+        html = html.replace(
+          new RegExp('data-slot-id="' + slotId + '"(?![^>]*data-preloaded)', 'g'),
+          'data-slot-id="' + slotId + '" data-preloaded-src="' + escaped + '" data-preloaded-type="' + type + '"'
+        );
+      });
+
+      // Inject auto-restore script before </head>
+      const autoRestoreScript = `<script id="preload-restore">
+// Expose restorePreloaded globally so showAllScenes can call it after login
+window.restorePreloaded = function() {
+  document.querySelectorAll('[data-preloaded-src]').forEach(function(slotEl) {
+    var dataURL = slotEl.getAttribute('data-preloaded-src');
+    var type = slotEl.getAttribute('data-preloaded-type');
+    if (!dataURL || !type) return;
+    slotEl.querySelectorAll('img, video').forEach(function(el) { el.remove(); });
+    slotEl.querySelectorAll('.upload-icon, .upload-label, .panel-upload-icon, .panel-upload-label').forEach(function(el) { el.style.display = 'none'; });
+    var s = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:1;';
+    if (type.startsWith('image/')) {
+      var img = document.createElement('img');
+      img.src = dataURL; img.style.cssText = s;
+      img.addEventListener('contextmenu', function(e) { e.preventDefault(); if(confirm('Remove this photo?')) { slotEl.querySelectorAll('img,video').forEach(function(el){el.remove();}); slotEl.querySelectorAll('.upload-icon,.upload-label,.panel-upload-icon,.panel-upload-label').forEach(function(el){el.style.display='';}); } });
+      slotEl.appendChild(img);
+    } else if (type.startsWith('video/')) {
+      var vid = document.createElement('video');
+      vid.src = dataURL; vid.autoplay = true; vid.loop = true; vid.muted = true; vid.playsInline = true;
+      vid.style.cssText = s; slotEl.appendChild(vid);
+    }
+  });
+};
+<\/script>`;
+
+      html = html.replace('</head>', autoRestoreScript + '</head>');
+
+      // Download
+      var blob = new Blob([html], { type: 'text/html' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = 'lynn-story-final.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      btn.textContent = '✅ Downloaded!';
+      setTimeout(function() { btn.textContent = '💾 Export with Photos'; btn.disabled = false; }, 3000);
+
+    } catch(err) {
+      console.error('Export error:', err);
+      alert('Export failed: ' + err.message);
+      btn.textContent = '💾 Export with Photos';
+      btn.disabled = false;
+    }
+  }
+
+</script>
+
+<!-- ===================== DRIVE LINK MANAGER PANEL ===================== -->
+<div id="drive-manager" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:99999; align-items:center; justify-content:center; backdrop-filter:blur(6px);" onclick="if(event.target===this)closeDriveManager()">
+  <div style="background:#0a1628; border:2px solid #c9a84c; border-radius:16px; padding:2rem; width:min(480px,92vw); position:relative;">
+    
+    <!-- Header -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+      <div>
+        <div style="font-family:'Space Mono',monospace; font-size:0.65rem; color:rgba(255,255,255,0.4); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:0.3rem;">Photo Slot</div>
+        <div id="dm-title" style="font-family:'Playfair Display',serif; font-size:1.2rem; color:#c9a84c; font-style:italic;"></div>
+      </div>
+      <button onclick="closeDriveManager()" style="background:rgba(255,255,255,0.1); border:none; color:white; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:1rem;">✕</button>
+    </div>
+
+    <!-- Preview -->
+    <div style="background:rgba(255,255,255,0.05); border:2px dashed rgba(255,255,255,0.15); border-radius:8px; aspect-ratio:4/3; overflow:hidden; position:relative; margin-bottom:1.5rem;">
+      <img id="dm-preview-img" style="display:none; width:100%; height:100%; object-fit:cover;" />
+      <div id="dm-preview-empty" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;color:rgba(255,255,255,0.3);font-family:'Space Mono',monospace;font-size:0.75rem;">
+        <span style="font-size:1.5rem;">🖼️</span>
+        <span>Preview will appear here</span>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div style="margin-bottom:1rem;">
+      <div style="font-family:'Space Mono',monospace; font-size:0.65rem; color:rgba(255,255,255,0.5); margin-bottom:0.5rem; letter-spacing:0.1em;">GOOGLE DRIVE SHARE LINK</div>
+      <input id="dm-input" type="text" placeholder="https://drive.google.com/file/d/..." 
+        oninput="dmPreview()"
+        style="width:100%; padding:0.8rem; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); border-radius:8px; color:white; font-family:'Space Mono',monospace; font-size:0.7rem; outline:none; box-sizing:border-box;">
+      <input id="dm-slot-id" type="hidden">
+      <div style="font-size:0.6rem; color:rgba(255,255,255,0.3); margin-top:0.4rem; font-family:'Space Mono',monospace;">
+        Make sure sharing is set to "Anyone with the link" in Google Drive
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div style="display:flex; gap:0.8rem;">
+      <button onclick="dmSave()" style="flex:1; padding:0.8rem; background:#003da5; color:white; border:none; border-radius:8px; font-family:'Space Mono',monospace; font-size:0.75rem; cursor:pointer; font-weight:700; transition:background 0.2s;" onmouseover="this.style.background='#0052cc'" onmouseout="this.style.background='#003da5'">
+        ✅ Save Photo
+      </button>
+      <button onclick="dmRemove()" style="padding:0.8rem 1.2rem; background:rgba(227,6,19,0.2); color:#e30613; border:1px solid #e30613; border-radius:8px; font-family:'Space Mono',monospace; font-size:0.75rem; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(227,6,19,0.4)'" onmouseout="this.style.background='rgba(227,6,19,0.2)'">
+        🗑️ Remove
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- FLOATING MANAGE PHOTOS BUTTON -->
+<div style="position:fixed; bottom:2rem; right:2rem; z-index:9998;">
+  <button onclick="openAllSlotsManager()" style="
+    background:#003da5; color:white; border:2px solid #c9a84c;
+    border-radius:50px; padding:0.8rem 1.5rem;
+    font-family:'Space Mono',monospace; font-size:0.75rem;
+    letter-spacing:0.05em; cursor:pointer;
+    box-shadow:0 4px 20px rgba(0,0,0,0.4);
+    transition:all 0.2s; white-space:nowrap;"
+  onmouseover="this.style.background='#0052cc';this.style.transform='translateY(-2px)';"
+  onmouseout="this.style.background='#003da5';this.style.transform='translateY(0)';">
+    🔗 Manage Photos
+  </button>
+</div>
+
+<!-- ALL SLOTS MANAGER -->
+<div id="all-slots-manager" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:99998; overflow-y:auto; backdrop-filter:blur(6px);">
+  <div style="max-width:700px; margin:0 auto; padding:2rem 1.5rem;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+      <div>
+        <div style="font-family:'Bangers',cursive; font-size:2rem; color:#c9a84c; letter-spacing:0.05em;">📸 Manage All Photos</div>
+        <div style="font-family:'Space Mono',monospace; font-size:0.65rem; color:rgba(255,255,255,0.4); margin-top:0.3rem;">Paste Google Drive share links for each slot</div>
+      </div>
+      <button onclick="closeAllSlotsManager()" style="background:rgba(255,255,255,0.1); border:none; color:white; width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:1.1rem; flex-shrink:0;">✕</button>
+    </div>
+    <div id="all-slots-list"></div>
+    <div style="text-align:center; padding:1.5rem 0;">
+      <button onclick="saveAllSlots()" style="background:#003da5; color:white; border:2px solid #c9a84c; border-radius:50px; padding:1rem 3rem; font-family:'Space Mono',monospace; font-size:0.85rem; cursor:pointer; font-weight:700;">
+        ✅ Save All Photos
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openAllSlotsManager() {
+    const links = getDriveLinks();
+    const list = document.getElementById('all-slots-list');
+    list.innerHTML = Object.entries(SLOT_LABELS).map(([slotId, label]) => `
+      <div style="margin-bottom:1rem; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:1rem;">
+        <div style="font-family:'Space Mono',monospace; font-size:0.65rem; color:#c9a84c; margin-bottom:0.5rem; letter-spacing:0.1em;">${label}</div>
+        <input type="text" data-slot="${slotId}" value="${links[slotId] ? 'https://drive.google.com/file/d/' + links[slotId] + '/view' : ''}"
+          placeholder="https://drive.google.com/file/d/..."
+          style="width:100%; padding:0.6rem 0.8rem; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:white; font-family:'Space Mono',monospace; font-size:0.65rem; outline:none; box-sizing:border-box;">
+      </div>
+    `).join('');
+    document.getElementById('all-slots-manager').style.display = 'block';
+  }
+
+  function closeAllSlotsManager() {
+    document.getElementById('all-slots-manager').style.display = 'none';
+  }
+
+  function saveAllSlots() {
+    const links = getDriveLinks();
+    let saved = 0;
+    document.querySelectorAll('#all-slots-list input[data-slot]').forEach(input => {
+      const slotId = input.dataset.slot;
+      const val = input.value.trim();
+      const fileId = extractDriveId(val);
+      if (fileId) { links[slotId] = fileId; saved++; }
+      else delete links[slotId];
+    });
+    saveDriveLinks(links);
+    restoreAllDriveImages();
+    closeAllSlotsManager();
+    alert(`✅ ${saved} photo(s) saved! Scroll through the page to see them.`);
+  }
+</script>
+
+</body>
+</html>
