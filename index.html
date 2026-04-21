@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1414,7 +1413,7 @@ Next update: Probably during the next crisis</em>
   <div style="max-width:900px; margin:0 auto;">
     <!-- Full Comic Strip Image Slot -->
     <div style="background:white; border:4px solid #000; border-radius:8px; overflow:hidden; margin-bottom:2rem;">
-      <div data-slot-id="slot-10" onclick="openDriveManager('https://drive.google.com/file/d/1Dtk72_DvhhIGq65MG6ZtbVvDEBhF0hQz/view?usp=drive_link')" class="media-placeholder comic-slot" style="border-radius:0; border:none;">
+      <div data-slot-id="slot-10" onclick="openDriveManager('slot-10')" class="media-placeholder comic-slot" style="border-radius:0; border:none;">
       </div>
     </div>
 
@@ -2126,13 +2125,51 @@ Next update: Probably during the next crisis</em>
   // Storage key for Drive links
   const DRIVE_STORAGE_KEY = 'lynnDriveLinks';
 
+  // ===================== HARDCODED DRIVE LINKS =====================
+  const HARDCODED_LINKS = {
+    'slot-0': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784820/friend_group_xgbdnq.png',
+    'slot-1': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784812/camping_trip_ocjv4u.png',
+    'slot-2': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784821/weekend_qevzyr.png',
+    'slot-3': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784811/food_adventures_yte9uo.png',
+    'slot-4': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784814/celebrations_dfqe8e.png',
+    'slot-5': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784818/travel_together_ahhx1e.png',
+    'slot-6': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784817/star_energy_qli76u.png',
+    'slot-7': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784815/hang_out_icpvtm.png',
+    'slot-8': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784811/birthday_party_gicdfr.png',
+    'slot-9': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784818/random_happy_qy3dsi.png',
+    'slot-10': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784827/4_ktj872.png',
+    'slot-11': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776785942/5_iphhf8.png',
+    'slot-12': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776785940/6_sjhi0a.png',
+    'slot-13': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776785938/7_l5h58x.png',
+    'slot-14': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776785915/9_rpwbbc.png',
+    'slot-15': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776785916/10_bwsjdv.png',
+    'slot-16': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776785915/8_w8jdps.png',
+    'slot-17': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784819/other_friends_kughg8.png',
+    'slot-18': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784811/farewell_sinpei_joey_vfvb4l.png',
+    'slot-19': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784819/still_keeping_rw95fl.png',
+    'slot-20': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784815/lyn_quen_yzaqto.png',
+    'slot-21': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784814/quen_farewell_eoqfmm.png',
+    'slot-22': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784813/last_day_dh9f8l.png',
+    'slot-23': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784819/squad_ddcfus.png',
+    'slot-24': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784811/farewell_party_bvqziz.png',
+    'slot-25': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784814/legacy_oov8gg.png',
+    'slot-26': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784813/memories_a6ojzg.png',
+    'slot-27': 'https://res.cloudinary.com/dgkssikzk/image/upload/v1776784810/coffee_breaks_pu4ibi.png',
+  };
+
   function getDriveLinks() {
-    try { return JSON.parse(localStorage.getItem(DRIVE_STORAGE_KEY) || '{}'); }
-    catch(e) { return {}; }
+    try {
+      const stored = JSON.parse(localStorage.getItem(DRIVE_STORAGE_KEY) || '{}');
+      return Object.assign({}, HARDCODED_LINKS, stored);
+    } catch(e) { return Object.assign({}, HARDCODED_LINKS); }
   }
 
   function saveDriveLinks(links) {
-    localStorage.setItem(DRIVE_STORAGE_KEY, JSON.stringify(links));
+    const toStore = {};
+    Object.entries(links).forEach(([k, v]) => {
+      if (v !== HARDCODED_LINKS[k]) toStore[k] = v;
+    });
+    localStorage.setItem(DRIVE_STORAGE_KEY, JSON.stringify(toStore));
   }
 
   function extractDriveId(input) {
@@ -2146,18 +2183,16 @@ Next update: Probably during the next crisis</em>
   }
 
   function getDriveImageUrl(fileId) {
-    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1600`;
+    // fileId is now a full Imgur URL
+    return fileId;
   }
 
   function renderDriveImage(slotEl, fileId) {
-    slotEl.querySelectorAll('img, video, .slot-placeholder').forEach(el => el.remove());
+    slotEl.querySelectorAll('img, video, iframe, .slot-placeholder').forEach(el => el.remove());
     const img = document.createElement('img');
-    img.src = getDriveImageUrl(fileId);
+    img.src = fileId;
     img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:1;';
-    img.onerror = () => {
-      img.remove();
-      showSlotPlaceholder(slotEl, '❌ Image failed to load');
-    };
+    img.onerror = () => { img.remove(); showSlotPlaceholder(slotEl, '❌ Image failed to load'); };
     slotEl.appendChild(img);
   }
 
@@ -2380,7 +2415,7 @@ window.restorePreloaded = function() {
     }
   });
 };
-<\/script>`;
+<" + "/script>`;
 
       html = html.replace('</head>', autoRestoreScript + '</head>');
 
